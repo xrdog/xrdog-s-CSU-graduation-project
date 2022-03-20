@@ -10861,6 +10861,123 @@
 			]
 		},
 		{
+			"error": "note:",
+			"times": 228,
+			"percent": "1.59%",
+			"errors": [
+				{
+					"error": "error:319:3: note: candidate: bool std::operator!=(const std::error_code&, const std::error_code&)",
+					"times": 27,
+					"percent": "0.19%"
+				},
+				{
+					"error": "error:323:3: note: candidate: bool std::operator!=(const std::error_code&, const std::error_condition&)",
+					"times": 27,
+					"percent": "0.19%"
+				},
+				{
+					"error": "error:327:3: note: candidate: bool std::operator!=(const std::error_condition&, const std::error_code&)",
+					"times": 27,
+					"percent": "0.19%"
+				},
+				{
+					"error": "error:331:3: note: candidate: bool std::operator!=(const std::error_condition&, const std::error_condition&)",
+					"times": 27,
+					"percent": "0.19%"
+				},
+				{
+					"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_code&’",
+					"times": 15,
+					"percent": "0.10%"
+				},
+				{
+					"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_code&’",
+					"times": 15,
+					"percent": "0.10%"
+				},
+				{
+					"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_condition&’",
+					"times": 15,
+					"percent": "0.10%"
+				},
+				{
+					"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_condition&’",
+					"times": 15,
+					"percent": "0.10%"
+				},
+				{
+					"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_code&’",
+					"times": 9,
+					"percent": "0.06%"
+				},
+				{
+					"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_code&’",
+					"times": 9,
+					"percent": "0.06%"
+				},
+				{
+					"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_condition&’",
+					"times": 9,
+					"percent": "0.06%"
+				},
+				{
+					"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_condition&’",
+					"times": 9,
+					"percent": "0.06%"
+				},
+				{
+					"error": "error:217:5: note:   template argument deduction/substitution failed:",
+					"times": 4,
+					"percent": "0.03%"
+				},
+				{
+					"error": "error:217:5: note: candidate: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)",
+					"times": 4,
+					"percent": "0.03%"
+				},
+				{
+					"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_code&’",
+					"times": 3,
+					"percent": "0.02%"
+				},
+				{
+					"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_code&’",
+					"times": 3,
+					"percent": "0.02%"
+				},
+				{
+					"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_condition&’",
+					"times": 3,
+					"percent": "0.02%"
+				},
+				{
+					"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_condition&’",
+					"times": 3,
+					"percent": "0.02%"
+				},
+				{
+					"error": "error:208:3: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_code&’",
+					"times": 1,
+					"percent": "0.01%"
+				},
+				{
+					"error": "error:208:3: note: candidate: bool std::operator<(const std::error_code&, const std::error_code&)",
+					"times": 1,
+					"percent": "0.01%"
+				},
+				{
+					"error": "error:282:3: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_condition&’",
+					"times": 1,
+					"percent": "0.01%"
+				},
+				{
+					"error": "error:282:3: note: candidate: bool std::operator<(const std::error_condition&, const std::error_condition&)",
+					"times": 1,
+					"percent": "0.01%"
+				}
+			]
+		},
+		{
 			"error": "missing terminating \" character",
 			"times": 203,
 			"percent": "1.42%"
@@ -11818,26 +11935,6 @@
 			"percent": "0.20%"
 		},
 		{
-			"error": "error:319:3: note: candidate: bool std::operator!=(const std::error_code&, const std::error_code&)",
-			"times": 27,
-			"percent": "0.19%"
-		},
-		{
-			"error": "error:323:3: note: candidate: bool std::operator!=(const std::error_code&, const std::error_condition&)",
-			"times": 27,
-			"percent": "0.19%"
-		},
-		{
-			"error": "error:327:3: note: candidate: bool std::operator!=(const std::error_condition&, const std::error_code&)",
-			"times": 27,
-			"percent": "0.19%"
-		},
-		{
-			"error": "error:331:3: note: candidate: bool std::operator!=(const std::error_condition&, const std::error_condition&)",
-			"times": 27,
-			"percent": "0.19%"
-		},
-		{
 			"error": "no match for ‘operator<’ (operand types are ‘TPassenger’ and ‘TPassenger’)",
 			"times": 27,
 			"percent": "0.19%"
@@ -12093,26 +12190,6 @@
 			"percent": "0.11%"
 		},
 		{
-			"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_code&’",
-			"times": 15,
-			"percent": "0.10%"
-		},
-		{
-			"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_code&’",
-			"times": 15,
-			"percent": "0.10%"
-		},
-		{
-			"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_condition&’",
-			"times": 15,
-			"percent": "0.10%"
-		},
-		{
-			"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>’ to ‘const std::error_condition&’",
-			"times": 15,
-			"percent": "0.10%"
-		},
-		{
 			"error": "‘::main’ must return ‘int’",
 			"times": 15,
 			"percent": "0.10%"
@@ -12174,26 +12251,6 @@
 		},
 		{
 			"error": "continue statement not within a loop",
-			"times": 9,
-			"percent": "0.06%"
-		},
-		{
-			"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_code&’",
-			"times": 9,
-			"percent": "0.06%"
-		},
-		{
-			"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_code&’",
-			"times": 9,
-			"percent": "0.06%"
-		},
-		{
-			"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_condition&’",
-			"times": 9,
-			"percent": "0.06%"
-		},
-		{
-			"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::basic_istream<char>::__istream_type {aka std::basic_istream<char>}’ to ‘const std::error_condition&’",
 			"times": 9,
 			"percent": "0.06%"
 		},
@@ -12498,16 +12555,6 @@
 			"percent": "0.03%"
 		},
 		{
-			"error": "error:217:5: note:   template argument deduction/substitution failed:",
-			"times": 4,
-			"percent": "0.03%"
-		},
-		{
-			"error": "error:217:5: note: candidate: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::error_code&)",
-			"times": 4,
-			"percent": "0.03%"
-		},
-		{
 			"error": "expression list treated as compound expression in initializer [-fpermissive]",
 			"times": 4,
 			"percent": "0.03%"
@@ -12679,26 +12726,6 @@
 		},
 		{
 			"error": "declaration for parameter ‘m’ but no such parameter",
-			"times": 3,
-			"percent": "0.02%"
-		},
-		{
-			"error": "error:319:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_code&’",
-			"times": 3,
-			"percent": "0.02%"
-		},
-		{
-			"error": "error:323:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_code&’",
-			"times": 3,
-			"percent": "0.02%"
-		},
-		{
-			"error": "error:327:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_condition&’",
-			"times": 3,
-			"percent": "0.02%"
-		},
-		{
-			"error": "error:331:3: note:   no known conversion for argument 1 from ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ to ‘const std::error_condition&’",
 			"times": 3,
 			"percent": "0.02%"
 		},
@@ -13724,26 +13751,6 @@
 		},
 		{
 			"error": "default argument missing for parameter 5 of ‘int main(int, int, int, int, int)’",
-			"times": 1,
-			"percent": "0.01%"
-		},
-		{
-			"error": "error:208:3: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_code&’",
-			"times": 1,
-			"percent": "0.01%"
-		},
-		{
-			"error": "error:208:3: note: candidate: bool std::operator<(const std::error_code&, const std::error_code&)",
-			"times": 1,
-			"percent": "0.01%"
-		},
-		{
-			"error": "error:282:3: note:   no known conversion for argument 1 from ‘std::basic_ostream<char>’ to ‘const std::error_condition&’",
-			"times": 1,
-			"percent": "0.01%"
-		},
-		{
-			"error": "error:282:3: note: candidate: bool std::operator<(const std::error_condition&, const std::error_condition&)",
 			"times": 1,
 			"percent": "0.01%"
 		},

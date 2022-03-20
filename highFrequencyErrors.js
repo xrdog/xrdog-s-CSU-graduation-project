@@ -19,6 +19,7 @@ export const highFrequencyErrors = [
   "request for member ‘(.+?)’ in something not a structure or union",
   "array size missing in ‘(.+?)’",
   "no matching function for call to",
+  "note:",
 ]; //高频类似错误合并集
 
 /*
