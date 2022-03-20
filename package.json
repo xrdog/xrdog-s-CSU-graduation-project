@@ -1,0 +1,17 @@
+{
+  "name": "xrdog",
+  "version": "1.0.0",
+  "description": "xrdog's graduation project",
+  "main": "parse_error.js",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"babel-node parse_error.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
