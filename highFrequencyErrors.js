@@ -15,7 +15,6 @@ export const highFrequencyErrors = [
   "parameter ‘(.+?)’ is initialized",
   "label ‘(.+?)’ used but not defined",
   "conflicting types for ‘(.+?)’",
-  "variably modified ‘(.+?)’ at file scope",
   "request for member ‘(.+?)’ in something not a structure or union",
   "array size missing in ‘(.+?)’",
   "no matching function for call to",

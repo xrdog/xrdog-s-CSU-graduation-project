@@ -4,8 +4,7 @@ const filepath = "./all_error_message.json";
 let fileStr = fs.readFileSync(filepath, "utf-8");
 let jsonstr = JSON.parse(fileStr);
 let allError = [],
-  errors = [],
-  errorSize = jsonstr.data.length;
+  errors = [];
 const reg = /error:(.+?)\n/g; //获取error:xxx到\n间的报错信息
 
 let getPercent = (x) => {
@@ -22,6 +21,8 @@ jsonstr.data.forEach((item) => {
     );
   });
 });
+
+const errorSize = allError.length;
 
 allError.sort();
 let errMap = new Map(),
@@ -59,11 +60,11 @@ result.data.forEach((item) => {
             times: item.times,
             percent: getPercent(item.times),
           });
+          highFrequencyErrorsMap.set(
+            reg,
+            (highFrequencyErrorsMap.get(reg) || 0) + item.times
+          );
         }
-        highFrequencyErrorsMap.set(
-          reg,
-          (highFrequencyErrorsMap.get(reg) || 0) + item.times
-        );
         return true;
       }
     })
@@ -89,4 +90,4 @@ fs.writeFile(
   (err) => console.log("fs_write_error: ", err)
 );
 
-console.log(resultWithDeduplication.data[0].errors);
+console.log("errorSize:", errorSize);

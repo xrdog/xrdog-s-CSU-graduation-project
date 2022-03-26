@@ -7,10 +7,13 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "json2xls": "^0.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"babel-node parse_error.js"
+    "start": "babel-node parse_error.js",
+    "xls": "babel-node jsonToExcel.js"
   },
   "author": "",
   "license": "ISC"
