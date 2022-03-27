@@ -7528,8 +7528,8 @@
 		},
 		{
 			"error": "没有那个文件或目录",
-			"times": 1671,
-			"percent": "5.35%",
+			"times": 1669,
+			"percent": "5.34%",
 			"errors": [
 				{
 					"error": "iostream: 没有那个文件或目录",
@@ -7708,11 +7708,6 @@
 				},
 				{
 					"error": " stdio.h: 没有那个文件或目录",
-					"times": 2,
-					"percent": "0.01%"
-				},
-				{
-					"error": "Main.c: 没有那个文件或目录",
 					"times": 2,
 					"percent": "0.01%"
 				},
@@ -10758,7 +10753,7 @@
 		{
 			"error": "no matching function for call to",
 			"times": 189,
-			"percent": "0.60%",
+			"percent": "0.61%",
 			"errors": [
 				{
 					"error": "no matching function for call to ‘CCat::CCat(std::__cxx11::string&, int&, std::__cxx11::string&, int&, std::__cxx11::string&)’",
