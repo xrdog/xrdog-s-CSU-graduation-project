@@ -4,7 +4,8 @@ const filepath = "./all_error_message.json";
 let fileStr = fs.readFileSync(filepath, "utf-8");
 let jsonstr = JSON.parse(fileStr);
 let allError = [],
-  errors = [];
+  errors = [],
+  count_err = 0;
 const reg = /error:(.+?)\n/g; //获取error:xxx到\n间的报错信息
 
 let getPercent = (x) => {
@@ -42,10 +43,20 @@ errors.forEach((item) => {
     error: item,
     times: errMap.get(item),
     percent: getPercent(errMap.get(item)),
+    tips: "",
   });
 });
 
 result.data.sort((a, b) => b.times - a.times);
+result.data.forEach((item) => {
+  item.uid = ++count_err;
+});
+
+fs.writeFile(
+  "./errorsWithtips.json",
+  JSON.stringify(result, null, "\t"),
+  (err) => console.log("fs_write_error: ", err)
+);
 
 result.data.forEach((item) => {
   if (
@@ -59,6 +70,7 @@ result.data.forEach((item) => {
             error: item.error,
             times: item.times,
             percent: getPercent(item.times),
+            uid: item.uid,
           });
           highFrequencyErrorsMap.set(
             reg,
