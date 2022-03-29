@@ -1,7 +1,9 @@
 const fs = require("fs");
+let path = require("path");
 import { highFrequencyErrors } from "./highFrequencyErrors.js";
-const filepath = "./all_error_message.json";
-let fileStr = fs.readFileSync(filepath, "utf-8");
+const filepath = "../resource/all_error_message.json";
+let fileStr = fs.readFileSync(path.resolve(__dirname, filepath), "utf-8");
+
 let jsonstr = JSON.parse(fileStr);
 let allError = [],
   errors = [],
@@ -53,7 +55,7 @@ result.data.forEach((item) => {
 });
 
 fs.writeFile(
-  "./errorsWithtips.json",
+  path.resolve(__dirname, "../product/errorsWithtips.json"),
   JSON.stringify(result, null, "\t"),
   (err) => console.log("fs_write_error: ", err)
 );
@@ -97,7 +99,7 @@ highFrequencyErrors.forEach((item) => {
 resultWithDeduplication.data.sort((a, b) => b.times - a.times);
 
 fs.writeFile(
-  "./errorsWithDeduplication.json",
+  path.resolve(__dirname, "../product/errorsWithDeduplication.json"),
   JSON.stringify(resultWithDeduplication, null, "\t"),
   (err) => console.log("fs_write_error: ", err)
 );
