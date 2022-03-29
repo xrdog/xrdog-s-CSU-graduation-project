@@ -4,7 +4,7 @@
 			"error": "ld returned 1 exit status",
 			"times": 1724,
 			"percent": "5.52%",
-			"tips": "",
+			"tips": "1、库函数拼写错误。如：printf，scanf等。\r\n\r\n2、定义的函数名在调用时，函数名拼写错误。\r\n\r\n3、在执行函数时可能函数体本身的问题。\r\n\r\n4、检查一下任务栏，一般都是上一次“运行”的小黑窗还没关，然后执行“编译”，由于该文件正在被使用，程序没法执行编译，所以就报了这样的错误。",
 			"example": {
 				"before": "",
 				"after": ""
@@ -15,7 +15,7 @@
 			"error": "expected declaration or statement at end of input",
 			"times": 1116,
 			"percent": "3.57%",
-			"tips": "",
+			"tips": "1. 某一个函数或者变量没有在使用之前声明。检查报错行的函数与变量即可。\r\n\r\n2.某处括号不匹配。并不一定是报错行缺少或者多余了括号，请检查报错行所在的整个代码段。",
 			"example": {
 				"before": "",
 				"after": ""
@@ -26,7 +26,7 @@
 			"error": "stray ‘\\357’ in program",
 			"times": 774,
 			"percent": "2.48%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -37,7 +37,7 @@
 			"error": "stray ‘\\274’ in program",
 			"times": 758,
 			"percent": "2.43%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""

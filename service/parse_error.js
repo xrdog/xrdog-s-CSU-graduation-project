@@ -46,6 +46,10 @@ errors.forEach((item) => {
     times: errMap.get(item),
     percent: getPercent(errMap.get(item)),
     tips: "",
+    example: {
+      before: "",
+      after: "",
+    },
   });
 });
 
