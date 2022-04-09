@@ -48,7 +48,7 @@
 			"error": "expected ‘;’ before ‘}’ token",
 			"times": 699,
 			"percent": "2.24%",
-			"tips": "",
+			"tips": "这表示在}前需要分号，某条语句没结束。\r\n请查看报错行及之前的代码段是否缺少了分号\r\n特殊case: #define 后多打了冒号也会报此错误",
 			"example": {
 				"before": "",
 				"after": ""
@@ -59,7 +59,7 @@
 			"error": "iostream: 没有那个文件或目录",
 			"times": 686,
 			"percent": "2.20%",
-			"tips": "",
+			"tips": "检查头文件是否引用了#include<iostream>\r\n该错误表示编译器没找到这个库，iostream是标准的C++库，请检查是否选择了正确的语言进行代码提交。",
 			"example": {
 				"before": "",
 				"after": ""
@@ -70,9 +70,9 @@
 			"error": "variable-sized object may not be initialized",
 			"times": 649,
 			"percent": "2.08%",
-			"tips": "",
+			"tips": "变量大小的对象不能初始化!\r\n不同于C++,C语言规定了不能使用variable-sized的数组\r\n你不能在定义一个大小为变量的数组的同时对数组进行初始化",
 			"example": {
-				"before": "",
+				"before": "#include <stdio.h>\r\n\r\nint main()\r\n{\t\r\n\tint i,a,b,j,temp;\r\n\tscanf(\"%d\",a);\r\n\tint nums[a] = {};\r\n\tfor(i=0;i<a;i++)\r\n\t{scanf(\"%d\",&nums[i+1]);\r\n\t   }   \r\n\tfor(i=0;i<a-1;i++)\r\n\t{\r\n\t\tfor(j=0;j<a-i-1;j++)\r\n\t\t{\t\r\n\t\t\tif(nums[j]<nums[j+1])\r\n\t\t\ttemp = nums[j];\r\n\t\t\tnums[j] = nums[j+1];\r\n\t\t\tnums[j+1] = temp; \r\n\t\t}\r\n\t}\r\n\tfor(i=0;i<a;i++)\r\n\t{\r\n\tprintf(\"%d\\t\",nums[i]);\r\n\t}\r\n\treturn 0; \r\n}",
 				"after": ""
 			},
 			"uid": 7
@@ -81,7 +81,7 @@
 			"error": "lvalue required as left operand of assignment",
 			"times": 421,
 			"percent": "1.35%",
-			"tips": "",
+			"tips": "赋值语句的左边应该是变量，不能是表达式\r\n\r\n若你意图写一个判断语句，请检查是否将==或者!=达成了=号\r\n若你意图写一个复制语句，请检查一下左侧表达式是否为一个变量",
 			"example": {
 				"before": "",
 				"after": ""
@@ -92,9 +92,9 @@
 			"error": "expected identifier or ‘(’ before ‘}’ token",
 			"times": 409,
 			"percent": "1.31%",
-			"tips": "",
+			"tips": "在'}'这个记号之前期待着有标识符或者'(\r\n此错误表示}匹配不上\r\n请检查报错行表达式是否错误，代码段括号是否闭合",
 			"example": {
-				"before": "",
+				"before": "#include<stdio.h>\r\nint main()\r\n{\r\n    int n,m,k,x,y;\r\n    printf(\"enter n,m,k(n,m,k≤10000000):\");\r\n    scanf(\"%d%d%d%d%d\",&n,&m,&k,&x,&y);\r\n\tx=n-m;\r\n    y=x%k;\r\n    if(x>0&&y==0)\r\n    \tprintf(\"Happy!\");\r\n    else\r\n    \tprintf(\"Unhappy!\");}\r\n    \r\n    return 0;\r\n    \r\n}",
 				"after": ""
 			},
 			"uid": 9
@@ -103,7 +103,7 @@
 			"error": "‘EOF’ undeclared (first use in this function)",
 			"times": 365,
 			"percent": "1.17%",
-			"tips": "",
+			"tips": "这表示不认识EOF这个关键字\r\nEOF是一个定义在stdio.h头文件中的一个符号常量，需要包含stdio.h这个头文件。请检查一下你的程序中有没有使用#include命令包含这个头文件",
 			"example": {
 				"before": "",
 				"after": ""
@@ -114,7 +114,7 @@
 			"error": "unknown type name ‘bool’; did you mean ‘_Bool’?",
 			"times": 361,
 			"percent": "1.16%",
-			"tips": "",
+			"tips": "这表示不认识bool\r\n未知的类型名：‘bool’, 因为在C语言标准(C89)没有定义布尔类型，所以会报错。而C99提供了一个头文件<stdbool.h>定义了bool，true代表1，false代表0。只要导入stdbool.h，就能非常方便的操作布尔类型了。",
 			"example": {
 				"before": "",
 				"after": ""
@@ -125,7 +125,7 @@
 			"error": "expected expression before ‘int’",
 			"times": 350,
 			"percent": "1.12%",
-			"tips": "",
+			"tips": "在int之前期望一个表达式\r\n多种场景可能出现此错误：\r\n1、在某行定义变量时，上方的代码段不合法。如\r\n    for(i=1;i<=n;i++)\r\n\tint a[n];\r\n2、在表达式中错误的使用了int，如\r\n    if(i-int(i)==0)\r\n    应写作\r\n    if(i-(int)(i)==0)",
 			"example": {
 				"before": "",
 				"after": ""
@@ -136,7 +136,7 @@
 			"error": "‘else’ without a previous ‘if’",
 			"times": 345,
 			"percent": "1.10%",
-			"tips": "",
+			"tips": "else之前需要一个对应的if\r\n检查报错处else是否有对应的if\r\n需要注意，if语句后面如果有两条语句或者更多，要加上大括号，使之成为语句块",
 			"example": {
 				"before": "",
 				"after": ""
@@ -147,7 +147,7 @@
 			"error": "stray ‘\\240’ in program",
 			"times": 319,
 			"percent": "1.02%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -158,7 +158,7 @@
 			"error": "stray ‘\\233’ in program",
 			"times": 313,
 			"percent": "1.00%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -169,7 +169,7 @@
 			"error": "stray ‘\\302’ in program",
 			"times": 309,
 			"percent": "0.99%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -180,7 +180,7 @@
 			"error": "unknown type name ‘size_t’; did you mean ‘__size_t’?",
 			"times": 290,
 			"percent": "0.93%",
-			"tips": "",
+			"tips": "这是库函数内的报错，大概率是一个级联错误，请检查其他报错信息",
 			"example": {
 				"before": "",
 				"after": ""
@@ -191,7 +191,7 @@
 			"error": "expected identifier or ‘(’ before ‘return’",
 			"times": 278,
 			"percent": "0.89%",
-			"tips": "",
+			"tips": "在'return'这个记号之前期待着有标识符或者'(\r\n此错误表示}匹配不上\r\n请检查报错行表达式是否错误，代码段括号是否闭合",
 			"example": {
 				"before": "",
 				"after": ""
@@ -202,7 +202,7 @@
 			"error": "stray ‘\\200’ in program",
 			"times": 276,
 			"percent": "0.88%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -268,7 +268,7 @@
 			"error": "stray ‘\\’ in program",
 			"times": 215,
 			"percent": "0.69%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
@@ -389,7 +389,7 @@
 			"error": "stray ‘\\342’ in program",
 			"times": 154,
 			"percent": "0.49%",
-			"tips": "",
+			"tips": "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc",
 			"example": {
 				"before": "",
 				"after": ""
