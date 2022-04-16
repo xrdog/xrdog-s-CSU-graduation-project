@@ -20,7 +20,6 @@ export const highFrequencyErrors = [
   "no matching function for call to",
   "note:",
 ]; //高频类似错误合并集
-
 /*
   export const highFrequencyErrors = [
     "stray ‘(.+?)’ in program",
