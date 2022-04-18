@@ -20,6 +20,9 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
@@ -31,9 +34,7 @@
     "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-typescript": "^9.1.0",
     "axios": "^0.26.1",
-    "babel-cli": "^6.26.0",
     "babel-node": "0.0.1-security",
-    "babel-preset-env": "^1.7.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "koa": "^2.13.4",
