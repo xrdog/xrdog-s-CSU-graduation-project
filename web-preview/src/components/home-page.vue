@@ -42,16 +42,23 @@ export default defineComponent({
   watch: {
     compileErrMessage(message: string) {
       console.log("compileErrMessage:", message);
-      axios
-        .get("./api")
+      axios({
+        method: "post",
+        url: "http://localhost:7777/api",
+        data: {
+          compileErrMessage: message,
+        },
+        /* headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        }, */
+      })
         .then((response) => {
           console.log("response", response);
+          this.tips = response.data.data.tips;
         })
         .catch((error) => {
           console.log("error:", error);
         });
-
-      this.tips = `${Math.random()}`;
     },
   },
   methods: {
