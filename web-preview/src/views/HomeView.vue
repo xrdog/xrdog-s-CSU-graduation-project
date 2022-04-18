@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/csu.png" style="width:400px">
     <Home msg="增强提示演示"/>
   </div>
 </template>

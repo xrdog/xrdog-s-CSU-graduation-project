@@ -1,4 +1,4 @@
-const reg = /error:(.+?)\\n/g; //获取error:xxx到\n间的报错信息
+const reg = /error:(.+?)\n/g; //获取error:xxx到\n间的报错信息
 const fs = require("fs");
 let path = require("path");
 const filepath = "./enhanceTips.json";
@@ -6,17 +6,17 @@ let fileStr = fs.readFileSync(path.resolve(__dirname, filepath), "utf-8");
 let jsonstr = JSON.parse(fileStr);
 
 const getErrorList = (msg) => {
-  if (!msg) return ""; /* 
+  if (!msg) return ""; 
   console.log("reg:", reg);
   console.log("msg:  ", msg);
-  console.log(" msg.match(reg)", String(msg).match(reg)); */
+  console.log(" msg.match(reg)", String(msg).match(reg));
   let allError = [];
   (String(msg).match(reg) || []).forEach((str) => {
     allError.push(
       str
         .toString()
         .replace(/(error: )/g, "")
-        .replace(/(\\n)/g, "")
+        .replace(/(\n)/g, "")
     );
   });
 

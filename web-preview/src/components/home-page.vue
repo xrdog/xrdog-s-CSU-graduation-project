@@ -9,9 +9,9 @@
       :autosize="inputSize"
     />
     <el-card class="box-card tip-card">
-      <el-descriptions title="错误分析">
-        <el-descriptions-item label="首条分析">{{ tips }}</el-descriptions-item>
-      </el-descriptions>
+      <span class="pre-wrap">
+        {{ tips }}
+      </span>
     </el-card>
   </div>
 </template>
@@ -87,5 +87,10 @@ a {
 }
 .tip-card {
   margin-top: 40px;
+  text-align: left;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
 }
 </style>
