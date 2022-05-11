@@ -15,7 +15,8 @@ let getPercent = (x) => {
 };
 
 jsonstr.data.forEach((item) => {
-  (item.error.match(reg) || []).forEach((str) => {
+  (item.error.match(reg) || []).forEach((str,key) => {
+    //if (key>0) return ;//统计首条错误信息
     allError.push(
       str
         .toString()
@@ -26,7 +27,7 @@ jsonstr.data.forEach((item) => {
 });
 
 const errorSize = allError.length;
-
+//console.log('errorSize',jsonstr.data.length)
 allError.sort();
 let errMap = new Map(),
   highFrequencyErrorsMap = new Map(), //记录每个reg的匹配次数

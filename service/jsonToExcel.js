@@ -18,5 +18,5 @@ fs.readFile(path.resolve(__dirname,"../product/errorsWithDeduplication.json"), "
     arr.push(temp);
   });
   let xls = json2xls(json.data);
-  fs.writeFileSync(path.resolve(__dirname,"./product/errorsWithDeduplication.xlsx"), xls, "binary");
+  fs.writeFileSync(path.resolve(__dirname,"../product/errorsWithDeduplication.xlsx"), xls, "binary");
 });

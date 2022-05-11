@@ -4,10 +4,13 @@
   "description": "xrdog's graduation project",
   "main": "parse_error.js",
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0"
+    "core-js": "^3.8.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel-node": "0.0.1-security",
     "json2xls": "^0.1.2"
   },
   "scripts": {

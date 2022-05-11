@@ -5,11 +5,7 @@ import getTips from './getTips'
 
 app.use(koaBody());
 
-const reg = /error:(.+?)\\n/g; //获取error:xxx到\n间的报错信息
-
-
 app.use(async (ctx) => {
-  //console.log("ctx.request:   ", ctx.request);
   if (ctx.request.path === "/api") {
     console.log("do");
     ctx.set("Access-Control-Allow-Origin", "*");
