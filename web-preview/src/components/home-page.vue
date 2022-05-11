@@ -2,12 +2,23 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <el-radio-group v-model="rad">
+      <el-radio :label="1">输入编译错误</el-radio>
+      <el-radio :label="2">输入C语言源码</el-radio>
+    </el-radio-group>
     <el-input
       v-model="compileErrMessage"
       placeholder="Please input"
       type="textarea"
       :autosize="inputSize"
+      v-show="rad === 1"
     />
+    <el-card class="box-card tip-card" v-show="rad === 2">
+      <div id="editor">
+        function foo(items) { var x = "All this is syntax highlighted"; return
+        x; }
+      </div>
+    </el-card>
     <el-card class="box-card tip-card">
       <span class="pre-wrap">
         {{ tips }}
@@ -17,8 +28,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, Ref, ref } from "vue";
 import axios from "axios";
+import ace from "ace-builds";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/theme-monokai";
 interface homeData {
   inputSize: {
     minRows: number;
@@ -26,7 +40,21 @@ interface homeData {
   };
   compileErrMessage: string;
   tips: string;
+  rad: Ref<number>;
 }
+
+function initEditor(this: any) {
+  const editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.session.setMode("ace/mode/c_cpp");
+  editor.setFontSize('20px')
+  editor.on("change", (e) => {
+    if (this.rad === 2) {
+      console.log("txt", editor.getValue());
+    }
+  });
+}
+
 export default defineComponent({
   props: ["msg"],
   data(): homeData {
@@ -37,7 +65,12 @@ export default defineComponent({
       },
       compileErrMessage: "",
       tips: "",
+      rad: ref(1),
     };
+  },
+  mounted() {
+    initEditor.bind(this)(); //初始化文本编辑框
+    console.log("mounted!");
   },
   watch: {
     compileErrMessage(message: string) {
@@ -48,9 +81,6 @@ export default defineComponent({
         data: {
           compileErrMessage: message,
         },
-        /* headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        }, */
       })
         .then((response) => {
           console.log("response", response);
@@ -92,5 +122,10 @@ a {
 
 .pre-wrap {
   white-space: pre-wrap;
+}
+
+#editor {
+  width: 100%;
+  height: 400px;
 }
 </style>
