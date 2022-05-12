@@ -1,7 +1,7 @@
 import Koa from "koa";
 const app = new Koa();
 const koaBody = require("koa-body");
-import getTips from './getTips'
+import getTips from "./getTips";
 
 app.use(koaBody());
 
@@ -14,7 +14,7 @@ app.use(async (ctx) => {
     ctx.response.type = "json";
     ctx.response.body = {
       data: {
-        tips: getTips(ctx.request.body.compileErrMessage),
+        tips: getTips(ctx.request.body),
       },
     };
   }

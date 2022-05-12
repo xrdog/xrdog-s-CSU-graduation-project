@@ -3,17 +3,17 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <el-radio-group v-model="rad">
-      <el-radio :label="1">输入编译错误</el-radio>
-      <el-radio :label="2">输入C语言源码</el-radio>
+      <el-radio :label="1">输入C语言源码</el-radio>
+      <el-radio :label="2">输入编译错误</el-radio>
     </el-radio-group>
     <el-input
       v-model="compileErrMessage"
       placeholder="Please input"
       type="textarea"
       :autosize="inputSize"
-      v-show="rad === 1"
+      v-show="rad === 2"
     />
-    <el-card class="box-card tip-card" v-show="rad === 2">
+    <el-card class="box-card tip-card" v-show="rad === 1">
       <div id="editor">
         function foo(items) { var x = "All this is syntax highlighted"; return
         x; }
@@ -28,36 +28,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import axios from "axios";
 import ace from "ace-builds";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-monokai";
-interface homeData {
-  inputSize: {
-    minRows: number;
-    maxRows: number;
-  };
-  compileErrMessage: string;
-  tips: string;
-  rad: Ref<number>;
-}
-
-function initEditor(this: any) {
-  const editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  editor.session.setMode("ace/mode/c_cpp");
-  editor.setFontSize('20px')
-  editor.on("change", (e) => {
-    if (this.rad === 2) {
-      console.log("txt", editor.getValue());
-    }
-  });
-}
+import { HomeData, PostMessage } from "./home-page";
 
 export default defineComponent({
   props: ["msg"],
-  data(): homeData {
+  data(): HomeData {
     return {
       inputSize: {
         minRows: 5,
@@ -69,18 +49,38 @@ export default defineComponent({
     };
   },
   mounted() {
-    initEditor.bind(this)(); //初始化文本编辑框
+    this.initEditor(); //初始化文本编辑框
     console.log("mounted!");
   },
   watch: {
     compileErrMessage(message: string) {
       console.log("compileErrMessage:", message);
+      this.getTips({
+        compileErrMessage: message,
+        type: this.rad,
+      });
+    },
+  },
+  methods: {
+    changeTips(mes: string) {
+      this.tips = mes;
+    },
+    initEditor() {
+      const editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.session.setMode("ace/mode/c_cpp");
+      editor.setFontSize("20px");
+      editor.on("change", (e) => {
+        if (this.rad === 1) {
+          this.onEditorChange(editor);
+        }
+      });
+    },
+    getTips(message: PostMessage) {
       axios({
         method: "post",
         url: "http://localhost:7777/api",
-        data: {
-          compileErrMessage: message,
-        },
+        data: message,
       })
         .then((response) => {
           console.log("response", response);
@@ -90,10 +90,13 @@ export default defineComponent({
           console.log("error:", error);
         });
     },
-  },
-  methods: {
-    changeTips(mes: string) {
-      this.tips = mes;
+    onEditorChange(editor: ace.Ace.Editor) {
+      const code = editor.getValue();
+      console.log("code", code);
+      this.getTips({
+        sourceCode: code,
+        type: this.rad,
+      });
     },
   },
 });
