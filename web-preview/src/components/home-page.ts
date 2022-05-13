@@ -7,7 +7,8 @@ export interface HomeData {
     };
     compileErrMessage: string;
     tips: string;
-    rad: Ref<number>;
+    rad: Ref<number>; 
+    gccResponse: string;
 }
 
 export interface PostMessage {
@@ -15,5 +16,5 @@ export interface PostMessage {
     sourceCode?: string//源码
     time?: number//编译时间(ms)
     user?: string//user_id
-    type:number//1表示依据源码判断，2表示依据编译错误判断，0Test
+    type: number//1表示依据源码判断，2表示依据编译错误判断，0Test
 }

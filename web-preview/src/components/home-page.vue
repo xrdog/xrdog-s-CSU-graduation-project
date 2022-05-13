@@ -19,7 +19,22 @@
         x; }
       </div>
     </el-card>
+    <el-card class="box-card tip-card" v-show="rad === 1">
+      <template #header>
+        <div class="card-header">
+          <span class="card-title">编译器反馈信息</span>
+        </div>
+      </template>
+      <span class="pre-wrap">
+        {{ gccResponse }}
+      </span>
+    </el-card>
     <el-card class="box-card tip-card">
+      <template #header>
+        <div class="card-header">
+          <span class="card-title">修改建议</span>
+        </div>
+      </template>
       <span class="pre-wrap">
         {{ tips }}
       </span>
@@ -46,6 +61,7 @@ export default defineComponent({
       compileErrMessage: "",
       tips: "",
       rad: ref(1),
+      gccResponse: "",
     };
   },
   mounted() {
@@ -54,7 +70,6 @@ export default defineComponent({
   },
   watch: {
     compileErrMessage(message: string) {
-      console.log("compileErrMessage:", message);
       this.getTips({
         compileErrMessage: message,
         type: this.rad,
@@ -84,7 +99,9 @@ export default defineComponent({
       })
         .then((response) => {
           console.log("response", response);
-          this.tips = response.data.data.tips;
+          const item = response.data.data.tips;
+          this.tips = item.tips;
+          this.gccResponse = item.gccResponse;
         })
         .catch((error) => {
           console.log("error:", error);
@@ -130,5 +147,14 @@ a {
 #editor {
   width: 100%;
   height: 400px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 25px;
 }
 </style>

@@ -1,19 +1,28 @@
-const reg = /error:(.+?)\n/g; //获取error:xxx到\n间的报错信息
+const reg = /error:(.+?)\r/g; //获取error:xxx到\r间的报错信息
 const fs = require("fs");
 let path = require("path");
 const filepath = "./enhanceTips.json";
 let fileStr = fs.readFileSync(path.resolve(__dirname, filepath), "utf-8");
 let jsonstr = JSON.parse(fileStr);
 var exec = require("child_process").exec;
+
+//监听进程未处理rejection
+process.on("unhandledRejection", (reason, p) => {
+  console.log("catch by unhandledRejection!!!!!");
+  console.log("catch by unhandledRejection!!!!!");
+  console.log("catch by unhandledRejection!!!!!");
+  console.log("Promise: ", p, "Reason: ", reason);
+});
+
 const getErrorList = (msg) => {
   if (!msg) return "";
   let allError = [];
-  (String(msg).match(reg) || []).forEach((str) => {
+  (msg.match(reg) || []).forEach((str) => {
     allError.push(
       str
         .toString()
         .replace(/(error: )/g, "")
-        .replace(/(\n)/g, "")
+        .replace(/(\r)/g, "")
     );
   });
 
@@ -23,22 +32,30 @@ const getErrorList = (msg) => {
 //简单错误处理逻辑
 const defaultGetTips = (errorList) => {
   const firstError = errorList[0];
-  console.log("firstError", firstError);
+  console.log("firstError", JSON.stringify(firstError));
   if (!Array.isArray(errorList)) return "错误解析失败";
   let tip = undefined;
   jsonstr.data.forEach((item) => {
-    if (item.error == firstError) {
-      console.log("get!", item.tips);
-      tip = item.tips;
+    //将符号‘’转换为''
+    const compatibleStr = item.error.replace(/‘/g, "'").replace(/’/g, "'");
+    if (firstError == compatibleStr) {
+      //console.log("get!", item.tips);
+      tip = item;
     }
   });
+  if (tip === undefined) tip = { tips: "该错误未收录" };
   return tip;
 };
 
 //获取编译器报错信息
-const compileCPP = async () => {
+const compileCPP = async (msg) => {
+  const { sourceCode } = msg;
+  console.log("code", sourceCode);
+  fs.writeFile(path.resolve(__dirname, "./source_code.c"), sourceCode, (err) =>
+    console.log("fs_write_error: ", err)
+  );
   return new Promise(function (resolve, reject) {
-    var cmd = "dir";
+    var cmd = `gcc source_code.c`;
     exec(
       cmd,
       {
@@ -47,13 +64,13 @@ const compileCPP = async () => {
       },
       function (err, stdout, stderr) {
         if (err) {
-          console.log(err);
-          reject(err);
+          //console.log(err);
+          resolve(stderr);
         } else if (stderr.length > 0) {
-          reject(new Error(stderr.toString()));
+          resolve(new Error(stderr.toString()));
         } else {
-          console.log(stdout);
-          resolve();
+          //console.log(stdout);
+          resolve("noError");
         }
       }
     );
@@ -62,25 +79,32 @@ const compileCPP = async () => {
 
 //处理type=1,直接提交CPP源码的情况
 const workSourceCode = async (msg) => {
-  const { sourceCode } = msg;
-  console.log("code", sourceCode);
-  const compileErrMessage = await compileCPP();
-  return "xxx";
+  const compileErrMessage = await compileCPP(msg);
+  console.log("compileErrMessage", compileErrMessage);
+  if (compileErrMessage === "noError") {
+    return Promise.resolve("该代码无编译错误");
+  }
+  const errorList = getErrorList(compileErrMessage);
+  console.log("errorlist", errorList);
+  let tip = defaultGetTips(errorList);
+  return Promise.resolve(
+    Object.assign(tip, { gccResponse: compileErrMessage })
+  );
 };
 
 //处理type=2,直接提交编译错误反馈信息的情况
 const workCompileMessage = (msg) => {
   const errorList = getErrorList(msg.compileErrMessage);
   let tip = defaultGetTips(errorList);
-  return tip || "该错误未收集";
+  return tip;
 };
 
-export default (msg) => {
+export default async (msg) => {
   if (msg.type === 1) {
     return workSourceCode(msg);
   }
   if (msg.type === 2) {
-    return workCompileMessage(msg);
+    return Promise.resolve(workCompileMessage(msg));
   }
   return "error_code=0";
 };

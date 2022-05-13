@@ -7,14 +7,13 @@ app.use(koaBody());
 
 app.use(async (ctx) => {
   if (ctx.request.path === "/api") {
-    console.log("do");
     ctx.set("Access-Control-Allow-Origin", "*");
     ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT , POST");
     ctx.set("Access-Control-Allow-Headers", "*");
     ctx.response.type = "json";
     ctx.response.body = {
       data: {
-        tips: getTips(ctx.request.body),
+        tips: await getTips(ctx.request.body),
       },
     };
   }
