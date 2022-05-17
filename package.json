@@ -17,7 +17,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "babel-node ./service/parse_error.js",
     "xls": "babel-node ./service/jsonToExcel.js",
-    "tip": "babel-node ./utils/transTxtToJson "
+    "tip": "babel-node ./utils/transTxtToJson ",
+    "trans":"babel-node ./product/tips/trans.js"
   },
   "author": "",
   "license": "ISC"

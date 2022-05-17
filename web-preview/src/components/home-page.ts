@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-
+import ace from "ace-builds";
 export interface HomeData {
     inputSize: {
         minRows: number;
@@ -7,8 +7,13 @@ export interface HomeData {
     };
     compileErrMessage: string;
     tips: string;
-    rad: Ref<number>; 
+    rad: Ref<number>;
     gccResponse: string;
+    editor: ace.Ace.Editor | undefined;
+    example: {
+        before: string,
+        after: string
+    }
 }
 
 export interface PostMessage {

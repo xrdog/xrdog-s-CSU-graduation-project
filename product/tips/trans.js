@@ -3,7 +3,7 @@ let path = require("path");
 import { func } from "./func";
 const filepath = "./errorsWithtips.json";
 let fileStr = fs.readFileSync(path.resolve(__dirname, filepath), "utf-8");
-
+console.log('psth',path.resolve(__dirname, filepath))
 let jsonstr = JSON.parse(fileStr);
 
 jsonstr.data.forEach((item) => {

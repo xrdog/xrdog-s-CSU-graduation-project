@@ -10,6 +10,7 @@
     "start": "concurrently \"npm run api\" \"npm run serve\""
   },
   "dependencies": {
+    "@vitalets/google-translate-api": "^8.0.0",
     "ace-builds": "^1.4.14",
     "concurrently": "^7.1.0",
     "core-js": "^3.8.3",

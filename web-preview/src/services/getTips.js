@@ -29,11 +29,16 @@ const getErrorList = (msg) => {
   return allError;
 };
 
+//获取错误的报错行
+const getErrorLine = (msg) => {
+  return (msg.match(/:(\d):/g) || [""])[0].replace(/:/g, "");
+};
+
 //简单错误处理逻辑
-const defaultGetTips = (errorList) => {
+const defaultGetTips = async (errorList) => {
   const firstError = errorList[0];
-  console.log("firstError", JSON.stringify(firstError));
-  if (!Array.isArray(errorList)) return "错误解析失败";
+  //console.log("firstError", JSON.stringify(firstError));
+  if (!Array.isArray(errorList)) return Promise.resolve("错误解析失败");
   let tip = undefined;
   jsonstr.data.forEach((item) => {
     //将符号‘’转换为''
@@ -43,14 +48,17 @@ const defaultGetTips = (errorList) => {
       tip = item;
     }
   });
-  if (tip === undefined) tip = { tips: "该错误未收录" };
-  return tip;
+  if (tip === undefined)
+    return new Promise((resolve) => {
+      resolve({ tips: "该错误未收录" });
+    });
+  return Promise.resolve(tip);
 };
 
 //获取编译器报错信息
 const compileCPP = async (msg) => {
   const { sourceCode } = msg;
-  console.log("code", sourceCode);
+  //console.log("code", sourceCode);
   fs.writeFile(path.resolve(__dirname, "./source_code.c"), sourceCode, (err) =>
     console.log("fs_write_error: ", err)
   );
@@ -80,15 +88,18 @@ const compileCPP = async (msg) => {
 //处理type=1,直接提交CPP源码的情况
 const workSourceCode = async (msg) => {
   const compileErrMessage = await compileCPP(msg);
-  console.log("compileErrMessage", compileErrMessage);
+  //console.log("compileErrMessage", compileErrMessage);
   if (compileErrMessage === "noError") {
-    return Promise.resolve("该代码无编译错误");
+    return Promise.resolve({ tips: "该代码无编译错误" });
   }
   const errorList = getErrorList(compileErrMessage);
-  console.log("errorlist", errorList);
-  let tip = defaultGetTips(errorList);
+  //console.log("errorlist", errorList);
+  let tip = await defaultGetTips(errorList);
   return Promise.resolve(
-    Object.assign(tip, { gccResponse: compileErrMessage })
+    Object.assign(tip, {
+      gccResponse: compileErrMessage,
+      line: getErrorLine(compileErrMessage),
+    })
   );
 };
 

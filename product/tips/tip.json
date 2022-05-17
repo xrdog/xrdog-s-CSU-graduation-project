@@ -1,1 +1,1 @@
-"在int之前期望一个表达式\r\n多种场景可能出现此错误：\r\n1、在某行定义变量时，上方的代码段不合法。如\r\n    for(i=1;i<=n;i++)\r\n\tint a[n];\r\n2、在表达式中错误的使用了int，如\r\n    if(i-int(i)==0)\r\n    应写作\r\n    if(i-(int)(i)==0)"
+"#include <stdio.h>\r\nint main ()\r\n{\r\n    printf（\"hello world\");//将此处的右括号修改为英文符号中的右括号\r\n    //                   ^\r\n    return 0;\r\n}\r\n"

@@ -3,6 +3,10 @@ export const func = [
     if (item.error.match("stray ‘(.+?)’ in program")) {
       item.tips =
         "在代码中打入了全角字符，检查一下是不是某个字符没用英文输入法。\r\n\r\n请检查报错行是否包含了全角的字符。\r\n\r\n\\***并不一定代表了一个具体的字符，它可能是一个全角符号的Unicode值转为了多段ASCII码表示\r\n\r\n如果你想了解此错误产生的更多细节，可以查看:https://stackoverflow.com/questions/19198332/compilation-error-stray-302-in-program-etc";
+      item.example.before =
+        '#include <stdio.h>\r\nint main ()\r\n{\r\n    printf（"hello world"）;//此处的右括号为中文符号中的右括号\r\n    return 0;\r\n}\r\n';
+      item.example.after =
+        '#include <stdio.h>\r\nint main ()\r\n{\r\n    printf（"hello world");//将此处的右括号修改为英文符号中的右括号\r\n    //                   ^\r\n    return 0;\r\n}\r\n';
     }
   },
   (item) => {

@@ -14,12 +14,21 @@
       v-show="rad === 2"
     />
     <el-card class="box-card tip-card" v-show="rad === 1">
-      <div id="editor">
-        function foo(items) { var x = "All this is syntax highlighted"; return
-        x; }
+      <div id="editor"></div>
+      <div style="display: block; text-align: center">
+        <el-button
+          type="primary"
+          class="button"
+          size="large"
+          v-on:click="onEditorChange(editor)"
+          >提交代码</el-button
+        >
       </div>
     </el-card>
-    <el-card class="box-card tip-card" v-show="rad === 1">
+    <el-card
+      class="box-card tip-card"
+      v-show="rad === 1 && gccResponse.length > 0"
+    >
       <template #header>
         <div class="card-header">
           <span class="card-title">编译器反馈信息</span>
@@ -39,6 +48,7 @@
         {{ tips }}
       </span>
     </el-card>
+    <CodeExample :ex="example" />
   </div>
 </template>
 
@@ -49,9 +59,13 @@ import ace from "ace-builds";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-monokai";
 import { HomeData, PostMessage } from "./home-page";
+import CodeExample from "./code-example.vue";
 
 export default defineComponent({
   props: ["msg"],
+  components: {
+    CodeExample,
+  },
   data(): HomeData {
     return {
       inputSize: {
@@ -62,6 +76,11 @@ export default defineComponent({
       tips: "",
       rad: ref(1),
       gccResponse: "",
+      editor: undefined,
+      example: {
+        before: "111",
+        after: "",
+      },
     };
   },
   mounted() {
@@ -75,6 +94,9 @@ export default defineComponent({
         type: this.rad,
       });
     },
+    example(example) {
+      console.log("ex1", example);
+    },
   },
   methods: {
     changeTips(mes: string) {
@@ -82,14 +104,16 @@ export default defineComponent({
     },
     initEditor() {
       const editor = ace.edit("editor");
+      this.editor = editor;
       editor.setTheme("ace/theme/monokai");
       editor.session.setMode("ace/mode/c_cpp");
+      editor.setHighlightActiveLine(true);
       editor.setFontSize("20px");
-      editor.on("change", (e) => {
+      /*  editor.on("change", (e) => {
         if (this.rad === 1) {
           this.onEditorChange(editor);
         }
-      });
+      }); */
     },
     getTips(message: PostMessage) {
       axios({
@@ -101,13 +125,18 @@ export default defineComponent({
           console.log("response", response);
           const item = response.data.data.tips;
           this.tips = item.tips;
-          this.gccResponse = item.gccResponse;
+          this.gccResponse = item.gccResponse || "";
+          this.example = item.example;
+          if (this.editor) {
+            this.editor.gotoLine(item.line || 1, 0, true);
+          }
         })
         .catch((error) => {
           console.log("error:", error);
         });
     },
-    onEditorChange(editor: ace.Ace.Editor) {
+    onEditorChange(editor: ace.Ace.Editor | undefined) {
+      if (!editor) return;
       const code = editor.getValue();
       console.log("code", code);
       this.getTips({
@@ -156,5 +185,9 @@ a {
 
 .card-title {
   font-size: 25px;
+}
+
+.button {
+  margin: 15px;
 }
 </style>

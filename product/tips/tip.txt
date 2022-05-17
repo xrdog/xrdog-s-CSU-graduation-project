@@ -1,9 +1,7 @@
-在int之前期望一个表达式
-多种场景可能出现此错误：
-1、在某行定义变量时，上方的代码段不合法。如
-    for(i=1;i<=n;i++)
-	int a[n];
-2、在表达式中错误的使用了int，如
-    if(i-int(i)==0)
-    应写作
-    if(i-(int)(i)==0)
+#include <stdio.h>
+int main ()
+{
+    printf（"hello world");//将此处的右括号修改为英文符号中的右括号
+    //                   ^
+    return 0;
+}
