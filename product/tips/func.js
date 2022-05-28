@@ -13,28 +13,50 @@ export const func = [
     if (
       item.error.match(
         "(undeclared)|(was not declared)|(has not been declared)"
-      ) &&
-      item.tips.length === 0
+      )
     ) {
-      item.tips = "该错误表示报错变量未定义";
+      if (!item.example.before) {
+        item.example.before = `#include<stdio.h>\r\nint a[100];\r\nint main(void)\r\n{\r\n    int n,m,k;\r\n    scanf(\"%d %d %d\",&n,&m,&K);\r\n    //----------------------^//在第6行定义了小写变量k，然而第7行却使用了大写变量K，此报错表示变量K未定义\r\n    memeset(a,0,sizeof(a));\r\n    return 0;  \r\n}`;
+      }
+      if (!item.example.after) {
+        item.example.after = `#include<stdio.h>\r\nint a[100];\r\nint main(void)\r\n{\r\n    int n,m,k;\r\n    scanf(\"%d %d %d\",&n,&m,&k);\r\n    //----------------------^\r\n    memeset(a,0,sizeof(a));\r\n    return 0;  \r\n}`;
+      }
+      if (item.tips.length === 0) {
+        item.tips = "该错误表示报错变量未定义";
+      }
     }
   },
   (item) => {
     if (
       item.error.match(
         "(expected (.*) before (.*)|(expected (.*) at end of (.*))|(expected (.*) after (.*)))"
-      ) &&
-      item.tips.length === 0
+      )
     ) {
-      item.tips =
-        "请检查报错行表达式是否缺少了对应的标识符，代码段括号是否闭合";
+      if (!item.example.before) {
+        item.example.before = `#include <stdio.h>\r\nint main()\r\n{\r\n    int a,b,k=0,i;\r\n    int c[100];\r\n    while(scanf(\"%d%d\",&a,&b)!=EOF); \r\n\tprintf(\"%d\\n\",a+b);\r\n    return 0;\r\n//缺少了花括号,代码段不闭合`;
+      }
+      if (!item.example.after) {
+        item.example.after = `#include <stdio.h>\r\nint main()\r\n{\r\n    int a,b,k=0,i;\r\n    int c[100];\r\n    while(scanf(\"%d%d\",&a,&b)!=EOF); \r\n\tprintf(\"%d\\n\",a+b);\r\n    return 0;\r\n}`;
+      }
+      if (item.tips.length === 0) {
+        item.tips =
+          "请检查报错行表达式是否缺少了对应的标识符，代码段括号是否闭合";
+      }
     }
   },
-  (item) => {
-    if (item.error.match("没有那个文件或目录") && item.tips.length === 0) {
-      let reg = /(.+?):/g;
-      let name = item.error.match(reg)[0].replace(/:/, "");
-      item.tips = `检查头文件是否引用了#include<${name}>,\r\n该错误表示编译器没找到这个库，请检查是否选择了正确的语言及正确的编译器版本进行代码提交。`;
+ /*  (item) => {
+    if (item.error.match("没有那个文件或目录|No such file or directory")) {
+      if (item.tips.length === 0) {
+        let reg = /(.+?):/g;
+        let name = item.error.match(reg)[0].replace(/:/, "");
+        item.tips = `检查头文件是否引用了#include<${name}>,\r\n该错误表示编译器没找到这个库，请检查是否选择了正确的语言及正确的编译器版本进行代码提交。`;
+      }
+      if (!item.example.before) {
+        item.example.before = ;
+      }
+      if (!item.example.after) {
+        item.example.after = `#include <stdio.h>\r\nint main()\r\n{\r\n    int a,b,k=0,i;\r\n    int c[100];\r\n    while(scanf(\"%d%d\",&a,&b)!=EOF); \r\n\tprintf(\"%d\\n\",a+b);\r\n    return 0;\r\n}`;
+      }
     }
-  },
+  }, */
 ];

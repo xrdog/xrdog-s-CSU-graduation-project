@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card tip-card">
+  <el-card class="box-card tip-card" v-show="showExample">
     <template #header>
       <div class="card-header">
         <span class="card-title">修改示例</span>
@@ -28,6 +28,7 @@ export default defineComponent({
       example: this.ex,
       editorAfter: undefined,
       editorBefore: undefined,
+      showExample: false,
     };
   },
   mounted() {
@@ -48,8 +49,13 @@ export default defineComponent({
       this.example = value;
     },
     example(value) {
-      this.editorAfter?.setValue(value.after);
-      this.editorBefore?.setValue(value.before);
+      if (value && (value.after || value.before)) {
+        this.editorAfter?.setValue(value.after);
+        this.editorBefore?.setValue(value.before);
+        this.showExample = true;
+      } else {
+        this.showExample = false;
+      }
       console.log("this.editorBefore", this.editorBefore?.getValue());
     },
   },

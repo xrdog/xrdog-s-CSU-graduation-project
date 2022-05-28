@@ -6,7 +6,7 @@ export interface ExampleData {
         before: string,
         after: string
     }
-    
+    showExample: boolean
     editorBefore: ace.Ace.Editor | undefined;
     editorAfter: ace.Ace.Editor | undefined;
 }

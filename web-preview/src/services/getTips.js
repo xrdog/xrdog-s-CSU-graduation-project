@@ -37,14 +37,14 @@ const getErrorLine = (msg) => {
 //简单错误处理逻辑
 const defaultGetTips = async (errorList) => {
   const firstError = errorList[0];
-  //console.log("firstError", JSON.stringify(firstError));
+  console.log("firstError", JSON.stringify(firstError));
   if (!Array.isArray(errorList)) return Promise.resolve("错误解析失败");
   let tip = undefined;
   jsonstr.data.forEach((item) => {
     //将符号‘’转换为''
     const compatibleStr = item.error.replace(/‘/g, "'").replace(/’/g, "'");
     if (firstError == compatibleStr) {
-      //console.log("get!", item.tips);
+      console.log("get!", item.tips);
       tip = item;
     }
   });
@@ -55,10 +55,17 @@ const defaultGetTips = async (errorList) => {
   return Promise.resolve(tip);
 };
 
+//复杂错误处理逻辑
+const getComplexErrorTips = async (errorList) => {
+  const firstError = errorList[0];
+  
+  return undefined;
+};
+
 //获取编译器报错信息
 const compileCPP = async (msg) => {
   const { sourceCode } = msg;
-  //console.log("code", sourceCode);
+  console.log("code", sourceCode);
   fs.writeFile(path.resolve(__dirname, "./source_code.c"), sourceCode, (err) =>
     console.log("fs_write_error: ", err)
   );
@@ -88,13 +95,16 @@ const compileCPP = async (msg) => {
 //处理type=1,直接提交CPP源码的情况
 const workSourceCode = async (msg) => {
   const compileErrMessage = await compileCPP(msg);
-  //console.log("compileErrMessage", compileErrMessage);
+  console.log("compileErrMessage", compileErrMessage);
   if (compileErrMessage === "noError") {
     return Promise.resolve({ tips: "该代码无编译错误" });
   }
   const errorList = getErrorList(compileErrMessage);
-  //console.log("errorlist", errorList);
-  let tip = await defaultGetTips(errorList);
+  console.log("errorlist", errorList);
+  let tip = await getComplexErrorTips(errorList);
+  if (!tip) {
+    tip = await defaultGetTips(errorList);
+  }
   return Promise.resolve(
     Object.assign(tip, {
       gccResponse: compileErrMessage,

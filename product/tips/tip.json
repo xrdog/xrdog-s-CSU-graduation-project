@@ -1,1 +1,1 @@
-"#include <stdio.h>\r\nint main ()\r\n{\r\n    printf（\"hello world\");//将此处的右括号修改为英文符号中的右括号\r\n    //                   ^\r\n    return 0;\r\n}\r\n"
+"#include <stdio.h>\r\nint main()\r\n{\r\n    int a,b,k=0,i;\r\n    int c[100];\r\n    while(scanf(\"%d%d\",&a,&b)!=EOF); \r\n\tprintf(\"%d\\n\",a+b);\r\n    return 0;\r\n}"
